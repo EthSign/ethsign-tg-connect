@@ -12,7 +12,7 @@ import { parseQuery } from 'vue-router'
 
 const mainDomRef = ref<HTMLElement | null>(null);
 
-(window as any).onTelegramAuth = function (user) {
+(window as any).onTelegramAuth = function (user: any) {
   console.log('login ', user)
 }
 
