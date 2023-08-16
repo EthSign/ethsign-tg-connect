@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tg-brother Demo</title>
+  </head>
+  <body>
+    <h1>tg-brother Demo</h1>
+
+    <button id="btn1">Click me to Connect</button>
+
+    <fieldset>
+      <legend>Result</legend>
+      <div id="result"></div>
+    </fieldset>
+
+    <script>
+      const $ = document.querySelector.bind(document)
+      $('#btn1').addEventListener('click', function () {
+        const botName = 'hstarorg_bot'
+
+        const tgProxyUrl = 'https://tg-brother.vercel.app'
+        // const tgProxyUrl = 'https://localhost:5173'
+
+        const tgBrotherWindow = window.open(
+          `${tgProxyUrl}?bot_name=${botName}`,
+          '_blank',
+          'width=400,height=300'
+        )
+
+        window.addEventListener('message', (evt) => {
+          const { origin, data } = evt
+          // Invalid message
+          if (
+            origin !== 'https://tg-brother.vercel.app' ||
+            data.type !== 'tg-brother:telegram_login'
+          ) {
+            return
+          }
+          // Process message
+          console.log(data)
+          $('#result').innerHTML = JSON.stringify(data.payload)
+          tgBrotherWindow.close()
+        })
+      })
+    </script>
+  </body>
+</html>

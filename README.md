@@ -37,3 +37,5 @@ window.addEventListener('message', (evt) => {
 ```
 
 4. Use `?close=1` to auto close window when auth done
+
+[Demo is here](https://tg-brother.vercel.app/demo.html)
