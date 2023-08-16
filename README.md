@@ -25,3 +25,4 @@ pnpm lint
 1. Configure bot domain to `https://tg-brother.vercel.app/`
 2. Use `window.open` open the link `https://tg-brother.vercel.app/?bot_name=<your bot name>`
 3. Use `tgBrotherWindow.onmessage` or `tgBrotherWindow.addEventListener('message', handler)` to receive result
+4. Use `?close=1` to auto close window when auth done

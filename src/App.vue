@@ -1,28 +1,33 @@
 
 
 <template>
-  <main ref="mainDomRef">
+  <main class="main" ref="mainDomRef">
 
   </main>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { parseQuery } from 'vue-router'
+import { parseQuery } from 'vue-router';
+
+const query = parseQuery(window.location.search);
 
 const mainDomRef = ref<HTMLElement | null>(null);
 
 (window as any).onTelegramAuth = function (user: any) {
-  console.log('login ', user)
   window.opener.postMessage({
-    type: 'telegram_login',
+    type: 'tg-brother:telegram_login',
     payload: user
   }, '*');
-  window.close();
+
+  if (query.close === '1') {
+    setTimeout(() => {
+      window.close();
+    });
+  }
 }
 
 onMounted(() => {
-  const query = parseQuery(window.location.search);
   const botName = query.bot_name as string || '';
 
   if (!botName) {
@@ -43,4 +48,10 @@ onMounted(() => {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
