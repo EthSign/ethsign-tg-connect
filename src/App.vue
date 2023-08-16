@@ -14,6 +14,11 @@ const mainDomRef = ref<HTMLElement | null>(null);
 
 (window as any).onTelegramAuth = function (user: any) {
   console.log('login ', user)
+  window.opener.postMessage({
+    type: 'telegram_login',
+    payload: user
+  }, '*');
+  window.close();
 }
 
 onMounted(() => {
